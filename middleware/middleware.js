@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
+const compression = require('compression')
 const Routes = require('./../routes/main')
 
 const middleware = (app) => {
@@ -11,6 +12,7 @@ const middleware = (app) => {
   app.use(bodyParser.urlencoded({extended: true}))
   app.use(bodyParser.json())
   app.get('env') === 'development' ? app.use(morgan('dev')) : app.use(helmet())
+  app.use(compression())
   app.use('/uploads', express.static('uploads'))
   app.use('/api', Routes)
 }
